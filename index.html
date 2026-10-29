@@ -243,6 +243,25 @@ body .st.Risk,body .tp.Risk{background:#f39c12;color:#fff;border:1px solid #d689
 @media(max-width:650px){.executive-kpis{grid-template-columns:1fr}.executive-kpis>.exec-k{min-height:260px}.executive-kpis .exec-value{font-size:44px}.executive-kpis .bill-title-row .bill-scope{font-size:9px}.ratio-metrics{margin-top:19px;gap:12px}.within-metric .ratio-value{font-size:44px}.late-metric .ratio-value{font-size:28px}.ratio-description{font-size:11px}.game-meter{margin-top:35px}}
 @media(max-width:360px){.executive-kpis .exec-value{font-size:38px}.ratio-metrics{gap:8px}.within-metric .ratio-value{font-size:38px}.late-metric .ratio-value{font-size:25px}.ratio-description,.ratio-bills{font-size:10px}.game-target-label,.game-status{font-size:10px}}
 @media print{.executive-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.executive-kpis>.exec-k{min-height:286px;break-inside:avoid}}
+
+/* Four KPIs in one desktop row; service panels share the same full width. */
+.executive-kpis{grid-template-columns:repeat(4,minmax(0,1fr))}
+.db{grid-template-columns:minmax(0,1fr)}
+@media(min-width:1281px) and (max-width:1600px){
+ .executive-kpis>.exec-k label,.executive-kpis .bill-ratio h2{font-size:14px}
+ .executive-kpis .exec-value{font-size:40px}
+ .executive-kpis .exec-value small{font-size:12px}
+ .executive-kpis>.exec-k .exec-foot{font-size:11px}
+ .executive-kpis .bill-title-row .bill-scope{font-size:8px}
+ .ratio-metrics{gap:10px}
+ .within-metric .ratio-value{font-size:36px}
+ .late-metric .ratio-value{font-size:24px}
+ .ratio-description,.ratio-bills{font-size:10px}
+ .game-target-label,.game-status{font-size:10px}
+}
+@media(max-width:1280px){.executive-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.executive-kpis{grid-template-columns:minmax(0,1fr)}}
+@media print{.executive-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.db{grid-template-columns:minmax(0,1fr)}}
 </style></head><body>
 <header><div class="brand"><span class="brand-mark">S</span><div><div class="eyebrow">DELIVERY</div><h1>SLA Command Center</h1></div></div><div class="header-actions"><button class="menu-toggle" type="button" aria-label="เปิดหรือปิดเมนู" aria-controls="sidebar" aria-expanded="false" onclick="toggleSidebar()">☰</button><span class="topbar-name">Executive Dashboard</span><div class="header-meta"><span class="live-dot"></span><span id="up">กำลังโหลดข้อมูล…</span></div></div></header>
 <aside class="sidebar" id="sidebar" aria-label="เมนูหลัก"><div class="sidebar-profile"><div class="profile-avatar">SLA</div><div><b>Delivery Performance</b><span><i class="side-online"></i> ระบบรายงาน</span></div></div><div class="sidebar-label">MAIN NAVIGATION</div><nav class="side-nav"><a href="#overview" class="active" onclick="closeSidebar()"><span class="nav-glyph">▦</span> ภาพรวมผู้บริหาร</a><a href="#business" onclick="closeSidebar()"><span class="nav-glyph">▥</span> ผลการดำเนินงาน</a><a href="#territory" onclick="closeSidebar()"><span class="nav-glyph">◫</span> พื้นที่และสาขา</a><a href="#trend" onclick="closeSidebar()"><span class="nav-glyph">⌁</span> วิเคราะห์รายชั่วโมง</a><a href="#branch-detail" onclick="closeSidebar()"><span class="nav-glyph">≡</span> รายละเอียดรายสาขา</a></nav><div class="sidebar-bottom">DELIVERY SLA<br><small>Management Report</small></div></aside><div class="sidebar-scrim" onclick="closeSidebar()"></div>
