@@ -262,6 +262,58 @@ body .st.Risk,body .tp.Risk{background:#f39c12;color:#fff;border:1px solid #d689
 @media(max-width:1280px){.executive-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:650px){.executive-kpis{grid-template-columns:minmax(0,1fr)}}
 @media print{.executive-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.db{grid-template-columns:minmax(0,1fr)}}
+
+/* Read each process time, target and affected-store count together. */
+.process-intro{display:flex;justify-content:space-between;align-items:center;gap:10px 18px;flex-wrap:wrap;margin:0 0 14px}
+.process-overall{display:flex;align-items:baseline;gap:8px;color:#344b57}
+.process-overall>span{font-size:12px;font-weight:500}
+.process-overall>b{font-size:24px;line-height:1.2;font-weight:600}
+.process-overall>small{font-size:11px;color:#657b87}
+.process-intro>p{margin:0;color:#657b87;font-size:11px}
+.process-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.process-card{min-width:0;background:#fff;border:1px solid #dfe7eb;border-radius:7px;padding:15px 14px}
+.process-card-head{display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:13px}
+.process-card-head h3{margin:0;color:#344b57;font-size:15px;font-weight:600}
+.process-state{font-size:10px;line-height:1.4;padding:3px 6px;border-radius:4px;background:#f0f4f6;color:#5c727e;white-space:nowrap}
+.process-time{display:flex;align-items:baseline;gap:7px;color:#344b57}
+.process-time>b{font-size:30px;line-height:1.1;font-weight:600;letter-spacing:-.7px}
+.process-time>span{font-size:11px}
+.process-target{font-size:11px;color:#657b87;margin-top:6px}
+.process-store-count{margin-top:14px;padding-top:11px;border-top:1px solid #e7ecef}
+.process-store-count>span{font-size:10px;color:#657b87}
+.process-store-count>div{display:flex;align-items:baseline;gap:5px;margin-top:4px;flex-wrap:wrap}
+.process-store-count b{font-size:20px;line-height:1.2;font-weight:600;color:#344b57}
+.process-store-count small{font-size:11px;color:#657b87}
+.process-store-count em{font-style:normal;font:500 11px 'IBM Plex Mono',monospace;color:#657b87;margin-left:auto}
+.process-card.is-over{background:#fff3ef;border-color:#efb8aa;border-top:3px solid #dd4b39;padding-top:13px}
+.process-card.is-over .process-state{background:#ffe0d7;color:#a93325}
+.process-card.is-over .process-time,.process-card.is-over .process-store-count b,.process-card.is-over .process-store-count em{color:#b33326}
+.process-card.is-over .process-store-count{border-top-color:#efcfc5}
+.process-card.is-normal .process-state{background:#edf7f1;color:#28724d}
+.tier-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.tier-group{min-width:0;border:1px solid #e1e8ec;border-radius:7px;background:#fbfcfd;padding:14px}
+.tier-group-head{margin-bottom:12px}
+.tier-group-head h3{font-size:14px;font-weight:600;color:#344b57;margin:0 0 4px}
+.tier-group-head p{font-size:11px;color:#657b87;margin:0;line-height:1.6}
+.tier-group.repeated .tier-group-head{padding-left:12px;border-left:4px solid #dd4b39}
+.tier-group.repeated .tier-group-head h3{font-size:16px;line-height:1.35;font-weight:600;color:#a93325}
+.tier-mini-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.tier-mini{min-width:0;border:1px solid #e4eaee;border-radius:5px;padding:10px 6px;text-align:center;background:#fff}
+.tier-mini>span{display:flex;justify-content:center;align-items:center;min-height:2.6em;font-size:11px;line-height:1.3;font-weight:500;color:#526b77}
+.tier-mini>b{display:block;font-size:23px;line-height:1.2;font-weight:600;color:#344b57;margin:5px 0}
+.tier-mini>small{display:block;font-size:10px;line-height:1.5;color:#657b87}
+.tier-mini.t1{background:#f0faf4;border-color:#d4eadd}
+.tier-mini.t1>span{color:#21844b}
+.tier-mini.t2{background:#fff8ec;border-color:#f0dfbf}
+.tier-mini.t2>span{color:#9c6513}
+.tier-mini.t3,.tier-mini.t4{background:#fff3f0;border-color:#efd8d1}
+.tier-mini.t3>span,.tier-mini.t4>span{color:#bb3d2c}
+.tier-mini.tier-total{background:#f0f4f7;border-color:#dce5ea}
+@media(max-width:1280px){.tier-groups{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:1100px){.process-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.tier-mini-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.process-intro{align-items:flex-start;flex-direction:column}.tier-group{padding:12px}}
+@media(max-width:500px){.process-grid{grid-template-columns:minmax(0,1fr)}}
+@media print{.process-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.tier-groups{grid-template-columns:minmax(0,1fr)}.process-card,.tier-group{break-inside:avoid}}
 </style></head><body>
 <header><div class="brand"><span class="brand-mark">S</span><div><div class="eyebrow">DELIVERY</div><h1>SLA Command Center</h1></div></div><div class="header-actions"><button class="menu-toggle" type="button" aria-label="เปิดหรือปิดเมนู" aria-controls="sidebar" aria-expanded="false" onclick="toggleSidebar()">☰</button><span class="topbar-name">Executive Dashboard</span><div class="header-meta"><span class="live-dot"></span><span id="up">กำลังโหลดข้อมูล…</span></div></div></header>
 <aside class="sidebar" id="sidebar" aria-label="เมนูหลัก"><div class="sidebar-profile"><div class="profile-avatar">SLA</div><div><b>Delivery Performance</b><span><i class="side-online"></i> ระบบรายงาน</span></div></div><div class="sidebar-label">MAIN NAVIGATION</div><nav class="side-nav"><a href="#overview" class="active" onclick="closeSidebar()"><span class="nav-glyph">▦</span> ภาพรวมผู้บริหาร</a><a href="#business" onclick="closeSidebar()"><span class="nav-glyph">▥</span> ผลการดำเนินงาน</a><a href="#territory" onclick="closeSidebar()"><span class="nav-glyph">◫</span> พื้นที่และสาขา</a><a href="#trend" onclick="closeSidebar()"><span class="nav-glyph">⌁</span> วิเคราะห์รายชั่วโมง</a><a href="#branch-detail" onclick="closeSidebar()"><span class="nav-glyph">≡</span> รายละเอียดรายสาขา</a></nav><div class="sidebar-bottom">DELIVERY SLA<br><small>Management Report</small></div></aside><div class="sidebar-scrim" onclick="closeSidebar()"></div>
@@ -352,9 +404,12 @@ function dash(R){const n=R.length,a=i=>avg(R,i),pC=n==1?(a(20)==null?null:a(20)*
  ov=STG.map((s,i)=>R.filter(r=>r[23+i]!=null&&r[23+i]>TG[i]).length),
  tr=SLA_TIERS.map((t,i)=>[R.filter(r=>sourceTier(r)===i).length,...t]);
  const rn=R.filter(r=>r[10]).length,rq=SLA_TIERS.slice(1).map((t,i)=>[R.filter(r=>r[10]&&sourceTier(r)===i+1).length,...t]),missingTier=R.filter(r=>sourceTier(r)<0).length;
- return `<div class="pn"><div class="panel-title-row"><h2>ข้อมูล SLA เวลาจัดส่ง</h2>${NOTE}</div><div class="sr">${CT('Average SLA Time',f(sla)+' นาที','','bl')}<div><h3>เวลาแยกตามกระบวนการ (นาที)</h3><div class="c4">${STG.map((s,i)=>CT(s+' เป้า≤'+TG[i]+' นาที',f(sg[i]),'','bl'+(sg[i]>TG[i]?' ovr':''))).join('')}</div></div></div><div class="process-anomalies"><h3>กระบวนการผิดปกติ (${n.toLocaleString()} สาขา)</h3><div class="c4">${STG.map((s,i)=>CT(s+' เกินเป้า',ov[i].toLocaleString(),sp(ov[i]),'pk')).join('')}</div></div>
+
+ const processCards=STG.map((s,i)=>{const known=sg[i]!=null,over=known&&sg[i]>TG[i];return `<article class="process-card ${over?'is-over':known?'is-normal':'is-missing'}" data-stage="${i}"><div class="process-card-head"><h3>${s}</h3><span class="process-state">${known?(over?'เฉลี่ยเกินเป้า':'เฉลี่ยผ่านเป้า'):'ไม่มีข้อมูล'}</span></div><div class="process-time"><b class="m">${f(sg[i])}</b><span>นาที</span></div><div class="process-target">เป้าหมาย ≤ ${TG[i]} นาที</div><div class="process-store-count"><span>สาขาที่เกินเป้า</span><div><b class="m">${ov[i].toLocaleString()}</b><small>สาขา</small><em>${sp(ov[i])}</em></div></div></article>`}).join('');
+ const tierCell=(label,value,percent,cls)=>`<div class="tier-mini ${cls}"><span>${label}</span><b class="m">${value.toLocaleString()}</b><small>สาขา${percent?' · '+percent:''}</small></div>`;
+ return `<div class="pn sla-process-panel"><div class="panel-title-row"><h2>ข้อมูล SLA เวลาจัดส่ง</h2>${NOTE}</div><div class="process-intro"><div class="process-overall"><span>SLA เฉลี่ย</span><b class="m">${f(sla)}</b><small>นาที</small></div><p>เปอร์เซ็นต์สาขาที่เกินเป้า เทียบกับ ${n.toLocaleString()} สาขาที่เลือก</p></div><div class="process-grid">${processCards}</div>
 <div class="delivery-cancel"><h3>การยกเลิกและจัดส่งล่าช้า</h3><div class="cg">${CT('%Cancel Order',f(pC,2)+'%','','or')}${CT('TC_Cancel (บิล)',f(a(19),1),'','or')}${CT(n>1?'Call จัดส่งล่าช้าเฉลี่ย':'Call จัดส่งล่าช้า',f(call,1)+' Call','','gn')}</div></div></div>
-<div class="pn sla-tier-panel"><h2>Tier SLA เวลาจัดส่ง</h2><div class="c4">${tr.map(t=>`<div class="tw"><em style="color:${t[3]}">${t[1]}</em>${CT('',t[0].toLocaleString(),'สาขา • '+sp(t[0]),t[2])}</div>`).join('')}</div>${missingTier?`<div class="nt">${missingTier.toLocaleString()} สาขายังไม่มี TIER ที่ตรงกับ 4 กลุ่ม จึงยังไม่รวมในกลุ่มด้านบน แต่ยังนับในจำนวนสาขาทั้งหมด กรุณาตรวจคอลัมน์ TIER และนำเข้าไฟล์อีกครั้ง</div>`:''}<div class="rp3"><div class="rw"><h3>ร้าน SLA เฉลี่ยเกิน 45 นาทีต่อเนื่อง 2 เดือน <span class="mu">(% เทียบร้านซ้ำ 2 เดือนทั้งหมด)</span></h3></div><div class="c4"><div class="tw"><em style="color:#dd4b39">ร้านซ้ำ 2 เดือนทั้งหมด</em>${CT('',rn.toLocaleString(),'สาขา','pk')}</div>${rq.map(t=>`<div class="tw"><em style="color:${t[3]}">${t[1]}</em>${CT('',t[0].toLocaleString(),'สาขา • '+f(rn?t[0]/rn*100:null,1)+'%',t[2])}</div>`).join('')}</div></div></div>`}
+<div class="pn sla-tier-panel"><h2>Tier SLA เวลาจัดส่ง</h2><div class="tier-groups"><section class="tier-group"><div class="tier-group-head"><h3>สาขาทั้งหมด</h3><p>เปอร์เซ็นต์เทียบกับ ${n.toLocaleString()} สาขาที่เลือก</p></div><div class="tier-mini-grid">${tr.map(t=>tierCell(t[1],t[0],sp(t[0]),t[2])).join('')}</div></section><section class="tier-group repeated"><div class="tier-group-head"><h3>สาขาที่ช้าต่อเนื่อง 2 เดือน</h3><p>เปอร์เซ็นต์เทียบกับ ${rn.toLocaleString()} สาขาที่ช้าต่อเนื่อง 2 เดือนทั้งหมด</p></div><div class="tier-mini-grid">${tierCell('ทั้งหมด',rn,'','tier-total')}${rq.map(t=>tierCell(t[1],t[0],f(rn?t[0]/rn*100:null,1)+'%',t[2])).join('')}</div></section></div>${missingTier?`<div class="nt">${missingTier.toLocaleString()} สาขายังไม่มี TIER ที่ตรงกับ 4 กลุ่ม จึงยังไม่รวมในกลุ่มด้านบน แต่ยังนับในจำนวนสาขาทั้งหมด กรุณาตรวจคอลัมน์ TIER และนำเข้าไฟล์อีกครั้ง</div>`:''}</div>`}
 function store(r,per){const c=stt(r[22]),ib=(l,v)=>`<div class="ib"><span>${l}</span><b>${esc(v??'—')}</b></div>`;
  return `<div class="pn" style="border-left:4px solid ${SC[c]}"><div class="rw"><div><div class="mu">ผลงาน SLA เดลิเวอรี่ · รายงานรายสาขา</div><h2 style="font-size:22px;margin:6px 0">สาขา ${esc(r[0])} · ${esc(r[1])}</h2><div class="mu">ช่วงข้อมูล ${esc(per)}</div></div><span class="st ${c}">SLA ${STL[c]}</span></div>
 <div class="c4" style="margin:14px 0">${ib('โซน',r[2])}${ib('ประเภท',r[3])}${ib('โปรไฟล์',r[4])}${ib('โปรไฟล์ย่อย',r[5])}</div>
@@ -440,7 +495,7 @@ function renderBillRatio(R){
  const statusClass=hasProgress?(passed?'Normal':'Critical'):'no-data',statusText=hasProgress?(passed?'ผ่านเป้า':'ต่ำกว่าเป้า'):'ไม่มีข้อมูลสัดส่วน';
  const progress=v=>Number.isFinite(v)?Math.max(0,Math.min(100,v)):0;
  const trackLabel=`บิลภายใน 45 นาที ${pct(b.withinPercent)} มากกว่า 45 นาที ${pct(b.latePercent)} เป้าหมายอย่างน้อย ${BILL_TARGET}%`;
- panel.innerHTML=`<div class="bill-title-row"><h2>สัดส่วนบิล</h2><span class="bill-scope">${scope}</span></div><div class="ratio-metrics"><div class="within-metric"><div class="ratio-value">${pct(b.withinPercent)}</div><div class="ratio-description">ภายใน 45 นาที</div><div class="ratio-bills">${count(b.within)} บิล</div></div><div class="late-metric"><div class="ratio-value">${pct(b.latePercent)}</div><div class="ratio-description">มากกว่า 45 นาที</div><div class="ratio-bills">${count(b.late)} บิล</div></div></div><div class="game-meter" style="--within:${progress(b.withinPercent)}%;--late:${progress(b.latePercent)}%;--target:${BILL_TARGET}%"><div class="game-status ${statusClass}">${statusText}</div><div class="game-target-label">เป้า ${BILL_TARGET}%</div><div class="game-track" role="img" aria-label="${trackLabel}"><i class="within-fill"></i><i class="late-fill"></i></div>${hasProgress?'<i class="game-current"></i>':''}<i class="game-target"></i><div class="game-scale"><span>0%</span><span>100%</span></div></div><a class="exec-more" href="#branch-detail">ดูรายละเอียด <span>›</span></a>`;
+ panel.innerHTML=`<div class="bill-title-row"><h2>สัดส่วนบิล</h2><span class="bill-scope">${scope}</span></div><div class="ratio-metrics"><div class="within-metric"><div class="ratio-value">${pct(b.withinPercent)}</div><div class="ratio-description">ภายใน 45 นาที</div><div class="ratio-bills">${count(b.within)} บิล</div></div><div class="late-metric"><div class="ratio-value">${pct(b.latePercent)}</div><div class="ratio-description">มากกว่า 45 นาที</div><div class="ratio-bills">${count(b.late)} บิล</div></div></div><div class="game-meter" style="--within:${progress(b.withinPercent)}%;--late:${progress(b.latePercent)}%;--target:${BILL_TARGET}%"><div class="game-status ${statusClass}">${statusText}</div><div class="game-target-label">เป้า ${BILL_TARGET}%</div><div class="game-track" role="img" aria-label="${trackLabel}"><i class="within-fill"></i><i class="late-fill"></i></div>${hasProgress?'<i class="game-current"></i>':''}<i class="game-target"></i><div class="game-scale"><span>${pct(b.withinPercent)}</span><span>${pct(b.latePercent)}</span></div></div><a class="exec-more" href="#branch-detail">ดูรายละเอียด <span>›</span></a>`;
 }
 function executiveOverview(R){
  const n=R.length;$('exec-period').textContent='ช่วงข้อมูล '+(META.period||'ไม่ระบุวันที่');
