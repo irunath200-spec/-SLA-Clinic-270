@@ -174,32 +174,75 @@ body .st.Risk,body .tp.Risk{background:#f39c12;color:#fff;border:1px solid #d689
 @media(max-width:650px){.executive-kpis{grid-template-columns:1fr}}
 @media print{.executive-kpis{grid-template-columns:repeat(4,minmax(0,1fr))}.db{grid-template-columns:1fr}}
 
-/* Harmonized colours scoped to the executive KPI cards only. */
-.exec-k.kpi-sla{--metric-bg:#237a57;--metric-text:#fff}
-.exec-k.kpi-cancel{--metric-bg:#f4ce69;--metric-text:#49380d}
-.exec-k.kpi-late{--metric-bg:#b94a48;--metric-text:#fff}
+/* Exact reference palette selected by the user. */
+.exec-k.kpi-sla{--metric-bg:#00c0ef;--metric-text:#fff}
+.exec-k.kpi-cancel{--metric-bg:#f39c12;--metric-text:#fff}
+.exec-k.kpi-late{--metric-bg:#dd4b39;--metric-text:#fff}
 .exec-k.kpi-sla,.exec-k.kpi-cancel,.exec-k.kpi-late{background:var(--metric-bg);color:var(--metric-text)}
 .executive-kpis>.exec-k.kpi-sla label,.executive-kpis>.exec-k.kpi-cancel label,.executive-kpis>.exec-k.kpi-late label,
 .executive-kpis>.exec-k .exec-value,.executive-kpis>.exec-k .exec-value small,.executive-kpis>.exec-k .exec-foot{color:var(--metric-text,#fff)!important}
+.executive-kpis>.exec-k label{font-weight:600}
 .executive-kpis>.exec-k .exec-foot{opacity:1}
 .executive-kpis>.exec-k .exec-more{color:var(--metric-text,#fff)}
-.exec-k.kpi-cancel .exec-more{background:#0000000d}
-.exec-k.kpi-cancel .exec-more:hover{background:#00000018}
-.exec-k.bill-ratio{--metric-text:#234d38;background:#eaf4ed;color:#234d38}
-.bill-ratio h2,.bill-ratio .bill-scope,.bill-ratio .mu,.bill-ratio .bill-hint{color:#234d38;opacity:1}
-.bill-ratio .bill-side{background:#237a57;color:#fff}
-.bill-ratio .bill-side.late{background:#b94a48}
+.exec-k.bill-ratio{--metric-text:#fff;background:#605ca8;color:#fff}
+.bill-ratio h2,.bill-ratio .bill-scope,.bill-ratio .mu,.bill-ratio .bill-hint{color:#fff;opacity:1}
+.bill-ratio .bill-side{background:#00a65a;color:#fff}
+.bill-ratio .bill-side.late{background:#dd4b39}
 .bill-ratio .bill-side h3,.bill-ratio .bill-percent,.bill-ratio .bill-count,.bill-ratio .bill-count small{color:#fff;opacity:1}
-.bill-ratio .bill-status{border-top-color:#bed7c6}
-.executive-kpis>.exec-k .st.Normal{background:#1f704e;color:#fff;border-color:#195c40}
-.executive-kpis>.exec-k .st.Critical{background:#a93434;color:#fff;border-color:#8d2929}
-.executive-kpis>.exec-k .st.Risk{background:#f4ce69;color:#49380d;border-color:#c99c39}
+.bill-ratio .bill-status{border-top-color:#ffffff4d}
+.executive-kpis>.exec-k .st.Normal{background:#00a65a;color:#fff;border-color:#008d4c}
+.executive-kpis>.exec-k .st.Critical{background:#dd4b39;color:#fff;border-color:#c0392b}
+.executive-kpis>.exec-k .st.Risk{background:#f39c12;color:#fff;border-color:#d68910}
 
 /* Keep cancellation and late-delivery calls within the SLA information panel. */
 .delivery-cancel{margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
 .delivery-cancel h3{font-size:13px;font-weight:500;color:#344b57;margin:0 0 12px}
 .db .pn.sla-tier-panel{border-top-color:#f39c12}
 @media(max-width:700px){.db>.pn:first-child .panel-title-row h2{flex:0 0 auto}}
+
+/* Approved blue, green, amber, red KPI layout and goal checkpoint. */
+.executive-kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;grid-auto-rows:1fr;align-items:stretch}
+.executive-kpis>.exec-k{min-height:286px;padding:22px 20px 49px;border-radius:4px;box-shadow:0 2px 4px #172b4212}
+.executive-kpis>.kpi-sla{--metric-bg:#00c0ef;order:1}
+.executive-kpis>.exec-k.bill-ratio{background:#00a65a;--metric-text:#fff;order:2}
+.executive-kpis>.kpi-cancel{--metric-bg:#f39c12;order:3}
+.executive-kpis>.kpi-late{--metric-bg:#dd4b39;order:4}
+.executive-kpis>.exec-k label{font-size:16px;font-weight:600}
+.executive-kpis .exec-value{font-size:48px;font-weight:600;margin:24px 0 13px;letter-spacing:-1px;line-height:1}
+.executive-kpis .exec-value small{font-size:14px;margin-left:8px;display:inline}
+.executive-kpis>.exec-k .exec-foot{font-size:13px;line-height:1.7}
+.executive-kpis>.exec-k .st{font-size:12px;padding:3px 7px}
+.executive-kpis>.exec-k:after{font-size:93px;top:45px;right:20px;opacity:.11}
+.executive-kpis>.kpi-cancel:after{content:'◕'}
+.executive-kpis>.kpi-late:after{content:'⚑'}
+.executive-kpis>.exec-k.bill-ratio:after{display:none}
+.executive-kpis .exec-more{font-size:14px;padding:10px;line-height:1.3}
+.executive-kpis .exec-more span{font-size:18px;vertical-align:-1px}
+.executive-kpis .bill-title-row{margin-bottom:0;align-items:center}
+.executive-kpis .bill-ratio h2{font-size:16px;font-weight:600}
+.executive-kpis .bill-title-row .bill-scope{font-size:10px;line-height:1.4;opacity:.9;letter-spacing:0}
+.ratio-metrics{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:18px;margin-top:22px}
+.within-metric .ratio-value{font:600 48px/1 'IBM Plex Mono',monospace;letter-spacing:-1px}
+.late-metric{text-align:right}
+.late-metric .ratio-value{font:600 29px/1 'IBM Plex Mono',monospace;letter-spacing:-.6px}
+.ratio-description{font-size:12px;line-height:1.5;margin-top:7px;white-space:nowrap}
+.ratio-description:before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:#c9ffe1;margin-right:5px;vertical-align:1px}
+.late-metric .ratio-description:before{background:#ffb3a9}
+.ratio-bills{font-size:11px;line-height:1.5;opacity:.93;margin-top:1px}
+.game-meter{position:relative;margin-top:37px}
+.game-track{position:relative;display:flex;height:12px;border-radius:8px;overflow:hidden;background:#008047;box-shadow:inset 0 1px 2px #003c242b}
+.game-track .within-fill{width:var(--within);flex:0 0 auto;height:100%;background:#c9ffe1}
+.game-track .late-fill{width:var(--late);flex:0 0 auto;height:100%;margin-left:auto;background:#dd4b39}
+.game-current{position:absolute;left:var(--within);top:6px;transform:translate(-50%,-50%);width:13px;height:13px;border:2px solid #fff;border-radius:50%;background:#c9ffe1;box-shadow:0 1px 3px #005c3933;z-index:2}
+.game-target{position:absolute;left:var(--target);top:-4px;height:22px;border-left:2px solid #ffe69b;z-index:3}
+.game-target-label{position:absolute;bottom:29px;left:var(--target);transform:translateX(-50%);padding:3px 7px;background:#ffe69b;color:#5b4200;border-radius:4px;white-space:nowrap;font-size:11px;font-weight:600;line-height:1.4;z-index:4}
+.game-target-label:after{content:'';position:absolute;left:50%;top:100%;transform:translateX(-50%);border:4px solid transparent;border-top-color:#ffe69b}
+.game-status{position:absolute;left:0;bottom:28px;font-size:11px;background:#dd4b39;color:#fff;border:1px solid #c0392b;border-radius:4px;padding:3px 6px;line-height:1.4}
+.game-status.Normal,.game-status.no-data{background:#008d4c;color:#fff;border-color:#00773f}
+.game-scale{display:flex;justify-content:space-between;color:#e4ffef;opacity:.85;font:500 10px/1.3 'IBM Plex Mono',monospace;margin-top:8px}
+@media(max-width:650px){.executive-kpis{grid-template-columns:1fr}.executive-kpis>.exec-k{min-height:260px}.executive-kpis .exec-value{font-size:44px}.executive-kpis .bill-title-row .bill-scope{font-size:9px}.ratio-metrics{margin-top:19px;gap:12px}.within-metric .ratio-value{font-size:44px}.late-metric .ratio-value{font-size:28px}.ratio-description{font-size:11px}.game-meter{margin-top:35px}}
+@media(max-width:360px){.executive-kpis .exec-value{font-size:38px}.ratio-metrics{gap:8px}.within-metric .ratio-value{font-size:38px}.late-metric .ratio-value{font-size:25px}.ratio-description,.ratio-bills{font-size:10px}.game-target-label,.game-status{font-size:10px}}
+@media print{.executive-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.executive-kpis>.exec-k{min-height:286px;break-inside:avoid}}
 </style></head><body>
 <header><div class="brand"><span class="brand-mark">S</span><div><div class="eyebrow">DELIVERY</div><h1>SLA Command Center</h1></div></div><div class="header-actions"><button class="menu-toggle" type="button" aria-label="เปิดหรือปิดเมนู" aria-controls="sidebar" aria-expanded="false" onclick="toggleSidebar()">☰</button><span class="topbar-name">Executive Dashboard</span><div class="header-meta"><span class="live-dot"></span><span id="up">กำลังโหลดข้อมูล…</span></div></div></header>
 <aside class="sidebar" id="sidebar" aria-label="เมนูหลัก"><div class="sidebar-profile"><div class="profile-avatar">SLA</div><div><b>Delivery Performance</b><span><i class="side-online"></i> ระบบรายงาน</span></div></div><div class="sidebar-label">MAIN NAVIGATION</div><nav class="side-nav"><a href="#overview" class="active" onclick="closeSidebar()"><span class="nav-glyph">▦</span> ภาพรวมผู้บริหาร</a><a href="#business" onclick="closeSidebar()"><span class="nav-glyph">▥</span> ผลการดำเนินงาน</a><a href="#territory" onclick="closeSidebar()"><span class="nav-glyph">◫</span> พื้นที่และสาขา</a><a href="#trend" onclick="closeSidebar()"><span class="nav-glyph">⌁</span> วิเคราะห์รายชั่วโมง</a><a href="#branch-detail" onclick="closeSidebar()"><span class="nav-glyph">≡</span> รายละเอียดรายสาขา</a></nav><div class="sidebar-bottom">DELIVERY SLA<br><small>Management Report</small></div></aside><div class="sidebar-scrim" onclick="closeSidebar()"></div>
@@ -374,8 +417,11 @@ function renderBillRatio(R){
  if(!R.length){panel.innerHTML='<h2>สัดส่วนบิล</h2><div class="mu">ไม่พบข้อมูลตามตัวกรองที่เลือก</div>';return}
  const b=billStats(R),scope='จำนวนสาขาที่เลือก '+R.length.toLocaleString()+' สาขา';
  const pct=v=>v==null?'—':f(v)+'%',count=v=>f(v,0);
- const status=b.withinPercent==null?'<span class="mu">เป้าหมาย ≥ 80% · ไม่มีข้อมูลสัดส่วน</span>':`<span class="st ${b.withinPercent>=BILL_TARGET?'Normal':'Critical'}">${b.withinPercent>=BILL_TARGET?'ผ่านเป้า':'ต่ำกว่าเป้า'}</span> <span class="mu">เป้าหมาย ≥ 80%</span>`;
- panel.innerHTML=`<div class="bill-title-row"><h2>สัดส่วนบิล</h2><span class="bill-scope">${scope}</span></div><div class="bill-sides"><div class="bill-side"><h3>ภายใน<span class="bill-time">45 นาที</span></h3><div class="bill-values"><div class="bill-percent m">${pct(b.withinPercent)}</div><div class="bill-count m">${count(b.within)}<small>บิล</small></div></div></div><div class="bill-side late"><h3>มากกว่า<span class="bill-time">45 นาที</span></h3><div class="bill-values"><div class="bill-percent m">${pct(b.latePercent)}</div><div class="bill-count m">${count(b.late)}<small>บิล</small></div></div></div></div><div class="bill-status">${status}</div><a class="exec-more" href="#branch-detail">ดูรายละเอียด <span>›</span></a>`;
+ const hasProgress=b.withinPercent!=null,passed=hasProgress&&b.withinPercent>=BILL_TARGET;
+ const statusClass=hasProgress?(passed?'Normal':'Critical'):'no-data',statusText=hasProgress?(passed?'ผ่านเป้า':'ต่ำกว่าเป้า'):'ไม่มีข้อมูลสัดส่วน';
+ const progress=v=>Number.isFinite(v)?Math.max(0,Math.min(100,v)):0;
+ const trackLabel=`บิลภายใน 45 นาที ${pct(b.withinPercent)} มากกว่า 45 นาที ${pct(b.latePercent)} เป้าหมายอย่างน้อย ${BILL_TARGET}%`;
+ panel.innerHTML=`<div class="bill-title-row"><h2>สัดส่วนบิล</h2><span class="bill-scope">${scope}</span></div><div class="ratio-metrics"><div class="within-metric"><div class="ratio-value">${pct(b.withinPercent)}</div><div class="ratio-description">ภายใน 45 นาที</div><div class="ratio-bills">${count(b.within)} บิล</div></div><div class="late-metric"><div class="ratio-value">${pct(b.latePercent)}</div><div class="ratio-description">มากกว่า 45 นาที</div><div class="ratio-bills">${count(b.late)} บิล</div></div></div><div class="game-meter" style="--within:${progress(b.withinPercent)}%;--late:${progress(b.latePercent)}%;--target:${BILL_TARGET}%"><div class="game-status ${statusClass}">${statusText}</div><div class="game-target-label">เป้า ${BILL_TARGET}%</div><div class="game-track" role="img" aria-label="${trackLabel}"><i class="within-fill"></i><i class="late-fill"></i></div>${hasProgress?'<i class="game-current"></i>':''}<i class="game-target"></i><div class="game-scale"><span>0%</span><span>100%</span></div></div><a class="exec-more" href="#branch-detail">ดูรายละเอียด <span>›</span></a>`;
 }
 function executiveOverview(R){
  const n=R.length;$('exec-period').textContent='ช่วงข้อมูล '+(META.period||'ไม่ระบุวันที่');
@@ -383,9 +429,9 @@ function executiveOverview(R){
  if(!n){$('exec-kpis').innerHTML='<div class="empty-exec">ไม่พบข้อมูล — ลองปรับตัวกรองหรือรีเฟรชข้อมูล</div>'+billCard;renderBillRatio(R);return}
  const sla=avg(R,22),valid=R.filter(r=>slaValue(r[22])!=null),late=valid.filter(r=>isLateSla(r[22])).length,cancel=n===1?(avg(R,20)==null?null:avg(R,20)*100):rt(R,19,16);
  const card=(title,value,unit,foot,cls,target)=>`<div class="exec-k ${cls}"><label>${title}</label><div class="exec-value">${value}<small>${unit}</small></div><div class="exec-foot">${foot}</div><a class="exec-more" href="#${target}">ดูรายละเอียด <span>›</span></a></div>`;
- $('exec-kpis').innerHTML=card('SLA เฉลี่ย',f(sla),'นาที',sla==null?'ไม่มีข้อมูล SLA':`<span class="st ${stt(sla)}">${STL[stt(sla)]}</span>เป้าหมาย ≤ 45 นาที`,'kpi-sla '+(sla==null?'':sla>45?'alert':'good'),'business')+
+ $('exec-kpis').innerHTML=card('SLA เฉลี่ย',f(sla),'นาที',sla==null?'ไม่มีข้อมูล SLA':`<span class="st ${stt(sla)}">${STL[stt(sla)]}</span>เป้าหมาย ≤ 45 นาที`,'kpi-sla '+(sla==null?'':sla>45?'alert':'good'),'business')+billCard+
  card('อัตรายกเลิกคำสั่งซื้อ',f(cancel),'%',cancel==null?'ไม่มีข้อมูลการยกเลิก':`<span class="st ${cancel>1.5?'Critical':'Normal'}">${cancel>1.5?'เกินเป้า':'ในเกณฑ์'}</span>เป้าหมาย ≤ 1.5%`,'kpi-cancel '+(cancel==null?'':cancel>1.5?'warn':'good'),'business')+
- card('SLA เกิน 45 นาที (สาขา)',late.toLocaleString(),'สาขา',valid.length?`${f(late/valid.length*100)}% ของ ${valid.length.toLocaleString()} สาขาที่มี SLA`:'ไม่มีข้อมูล SLA','kpi-late alert','territory')+billCard;
+ card('SLA เกิน 45 นาที (สาขา)',late.toLocaleString(),'สาขา',valid.length?`${f(late/valid.length*100)}% ของ ${valid.length.toLocaleString()} สาขาที่มี SLA`:'ไม่มีข้อมูล SLA','kpi-late alert','territory');
  renderBillRatio(R);
 }
 const NOTE='<aside class="compact-note" role="note" aria-label="หมายเหตุแนวทางแก้ไขความล่าช้า"><div class="compact-note-head"><span class="compact-note-icon" aria-hidden="true">i</span><div><strong>หมายเหตุ</strong><small>เมื่อเวลาของกระบวนการเกินมาตรฐาน</small></div></div><div class="note-routes"><div class="note-route dispatcher"><span class="note-stage">รับ หรือ จัด</span><span class="note-arrow" aria-hidden="true">→</span><span class="note-owner">แก้ไขที่ <strong>ดิสแพทเชอร์</strong></span></div><div class="note-route rider"><span class="note-stage">รอส่ง หรือ ส่ง</span><span class="note-arrow" aria-hidden="true">→</span><span class="note-owner">แก้ไขที่ <strong>ไรเดอร์</strong></span></div></div></aside>';
