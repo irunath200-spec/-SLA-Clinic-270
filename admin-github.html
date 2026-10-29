@@ -1,29 +1,77 @@
 <!DOCTYPE html>
 <html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>SLA Command Center — Admin</title>
+<title>SLA เว็บไซต์ใหม่ — Admin</title>
 <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 <style>
 :root{--bg:#0a0f1c;--p:#111a2e;--p2:#0e1526;--line:rgba(255,255,255,.08);--tx:#e7edf7;--mu:#8b98b8;--cy:#22d3ee;--am:#f5a623;--rd:#f4506a;--gr:#34d399}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font-family:'Prompt',sans-serif;padding-top:env(safe-area-inset-top,0px)}
 header{padding:18px 20px;border-bottom:1px solid var(--line)}h1{margin:0;font-size:19px}h1 i{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--am);box-shadow:0 0 10px var(--am);margin-right:10px}
 main{max-width:900px;margin:0 auto;padding:16px 14px 50px}.pn{background:linear-gradient(180deg,var(--p),var(--p2));border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:16px}.pn h2{font-size:14px;margin:0 0 12px;color:var(--mu)}
-.dr{border:1.5px dashed var(--line);border-radius:12px;padding:28px;text-align:center;color:var(--mu);font-size:13.5px;cursor:pointer}.dr:hover{border-color:var(--cy)}input{display:none}
+.dr{border:1.5px dashed var(--line);border-radius:12px;padding:28px;text-align:center;color:var(--mu);font-size:13.5px;cursor:pointer}.dr:hover{border-color:var(--cy)}input[type=file]{display:none}input:not([type=file]){display:block;width:100%;padding:10px;border:1px solid #43516b;border-radius:6px;background:#0a0f1c;color:var(--tx);font:inherit;margin:6px 0 12px}label{font-size:13px}a{color:var(--cy)}details{font-size:13px;line-height:1.9}summary{cursor:pointer}.target{overflow-wrap:anywhere}button:disabled{cursor:not-allowed}
 .mu{color:var(--mu);font-size:12.5px;margin-top:10px}.ok{color:var(--gr)}.er{color:var(--rd)}.wn{color:var(--am)}
 .mp{display:grid;grid-template-columns:1fr 1fr;gap:6px 16px;font-size:12.5px}.mp div{display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid var(--line);padding:4px 0}
 button{background:var(--cy);color:#04222b;border:0;padding:11px 20px;border-radius:8px;font:inherit;font-weight:600;font-size:13.5px;cursor:pointer;margin-top:14px}button:disabled{opacity:.4}
 @media(max-width:600px){.mp{grid-template-columns:1fr}}
 .stage-select{width:65%;min-width:0;background:#0e1526;color:var(--tx);border:1px solid var(--line);border-radius:6px;padding:5px;font:inherit;font-size:12px}.mp div{align-items:center}.stage-help{margin:0 0 12px;line-height:1.7}
 </style></head><body>
-<header><h1><i></i>SLA Command Center — Admin</h1><div class="mu" style="margin:4px 0 0">อัปโหลดไฟล์ Excel (.xlsx) ระบบจับคู่คอลัมน์ให้อัตโนมัติทั้งหมด</div></header>
+<header><h1><i></i>SLA เว็บไซต์ใหม่ — Admin</h1><div class="mu" style="margin:4px 0 0">อัปโหลดไฟล์ Excel (.xlsx) ระบบจับคู่คอลัมน์ให้อัตโนมัติทั้งหมด</div></header>
 <main>
+<div class="pn"><h2>เว็บไซต์ใหม่ · แยกฐานข้อมูลจากเว็บไซต์เดิม</h2><div id="target" class="mu target" role="status"></div><details><summary>วิธีตั้งค่าและความปลอดภัย</summary><ol><li>สร้าง Supabase โปรเจกต์ใหม่ แล้วใช้ไฟล์ setup-new-supabase.sql ในโปรเจกต์ใหม่นั้น</li><li>สร้างบัญชีผู้ดูแลใน Supabase Auth และเพิ่ม UUID ลงในตาราง sla_site_admins ตามคู่มือ</li><li>กรอก SITE_CONFIG 3 ค่าใน HTML ทั้งสองให้ตรงกัน: supabaseUrl, publishableKey, projectRef</li><li>เผยแพร่เป็นเว็บไซต์ใหม่ผ่าน HTTPS แยกจากเว็บไซต์เดิม แล้วเข้าสู่ระบบก่อนบันทึก</li></ol><p>ใช้ Publishable Key ได้ในหน้าเว็บ แต่ห้ามใส่ Secret Key หรือ Service Role Key การซ่อนหน้า Admin ไม่ได้จำกัดสิทธิ์ ต้องเปิด RLS ตามไฟล์ SQL</p><p>Dashboard ชุดนี้อ่านข้อมูล SLA ได้แบบสาธารณะ ผู้ที่มีลิงก์/คีย์อ่านข้อมูลที่อนุญาตได้ แม้บางช่องไม่ปรากฏบนจอ หากใช้ภายในองค์กร ให้ปิดสิทธิ์ anon และเพิ่มระบบเข้าสู่ระบบสำหรับผู้ชมก่อนเผยแพร่</p><p>ยอดขาย/TA/มูลค่าสูญเสียจะถูกตัดออกจากชุดข้อมูลก่อนส่งขึ้นระบบ เก็บ TC เดลิเวอรี่ไว้คำนวณอัตรายกเลิก และคง TC รายชั่วโมงกับ AK–AO ไว้คำนวณ SLA โดยไม่เลื่อนตำแหน่งคอลัมน์</p><a href="setup-new-supabase.sql" download>ดาวน์โหลด SQL สำหรับโปรเจกต์ใหม่</a> · <a href="อันนี้ภาพรวม.html" target="_blank" rel="noopener">เปิด Dashboard ใหม่</a></details></div>
+<div class="pn"><h2>เข้าสู่ระบบผู้ดูแล</h2><form id="login-form"><label for="email">อีเมลผู้ดูแล</label><input id="email" type="email" autocomplete="username" required><label for="password">รหัสผ่าน</label><input id="password" type="password" autocomplete="current-password" required><button id="login-btn" type="submit">เข้าสู่ระบบ</button></form><button id="logout-btn" type="button" onclick="logout()" hidden>ออกจากระบบ</button><div id="auth-status" class="mu" role="status">ยังไม่ได้เข้าสู่ระบบ — สามารถตรวจไฟล์ Excel ได้ แต่ยังบันทึกไม่ได้</div></div>
 <div class="pn"><h2>1. เลือกไฟล์ (ชีต Data — หัวตารางแถว store_id …)</h2><div class="dr" onclick="$('file').click()">คลิกเพื่อเลือกไฟล์ .xlsx / .xls</div><input type="file" id="file" accept=".xlsx,.xls"><div class="mu" id="fs"></div></div>
-<div class="pn" id="mp" style="display:none"><h2>2. ผลการจับคู่อัตโนมัติ</h2><div class="mu stage-help">แหล่งข้อมูลเวลา: รับ = AB, จัด = AC, รอส่ง = AD, ส่ง = AE ภายใต้หัวข้อเวลาจัดส่ง (มาตรฐาน 45 นาที) ตรวจตำแหน่งคอลัมน์ในเมนูก่อนบันทึก<br>สัดส่วนบิล: AK = จำนวนบิลรวม (ใช้คำนวณ), AL/AM = ภายใน 45 นาที/สัดส่วน, AN/AO = มากกว่า 45 นาที/สัดส่วน โดย AM/AO อ่านได้ทั้งเซลล์เปอร์เซ็นต์ Excel (เช่น 0.80 = 80%) และข้อความ 80% ส่วนจำนวนบิลรองรับเครื่องหมายคั่นหลักพัน เช่น 1,234 และขีด - ใน AK–AO หมายถึงไม่มีข้อมูล (ไม่นับใน AVG)</div><div class="mp" id="mg"></div><div class="mu" id="mw"></div><button id="sv" onclick="save()">บันทึกข้อมูลและอัปเดต Dashboard</button><div class="mu" id="ss"></div></div>
-<div class="pn"><h2>ข้อมูลปัจจุบันในระบบ</h2><div class="mu" id="cur" style="margin:0">กำลังตรวจสอบ…</div></div>
+<div class="pn" id="mp" style="display:none"><h2>2. ผลการจับคู่อัตโนมัติ</h2><div class="mu stage-help">แหล่งข้อมูลเวลา: รับ = AB, จัด = AC, รอส่ง = AD, ส่ง = AE ภายใต้หัวข้อเวลาจัดส่ง (มาตรฐาน 45 นาที) ตรวจตำแหน่งคอลัมน์ในเมนูก่อนบันทึก<br>สัดส่วนบิล: AK = จำนวนบิลรวม (ใช้คำนวณ), AL/AM = ภายใน 45 นาที/สัดส่วน, AN/AO = มากกว่า 45 นาที/สัดส่วน โดย AM/AO อ่านได้ทั้งเซลล์เปอร์เซ็นต์ Excel (เช่น 0.80 = 80%) และข้อความ 80% ส่วนจำนวนบิลรองรับเครื่องหมายคั่นหลักพัน เช่น 1,234 และขีด - ใน AK–AO หมายถึงไม่มีข้อมูล (ไม่นับใน AVG)</div><div class="mp" id="mg"></div><div class="mu" id="mw"></div><button id="sv" disabled onclick="save()">บันทึกข้อมูลและอัปเดต Dashboard</button><div class="mu" id="ss"></div></div>
+<div class="pn"><h2>ข้อมูลปัจจุบันในระบบ</h2><div class="mu" id="cur" style="margin:0">กำลังตรวจสอบ…</div><button type="button" onclick="cur()">ตรวจสอบข้อมูลอีกครั้ง</button></div>
 </main>
 <script>
-const URL_='https://axcudclbkzhtdnezhlbi.supabase.co',KEY='sb_publishable_we-LE76OhWvNwg2Gd25Ccg_-kpE3Rjq',$=i=>document.getElementById(i),HD={apikey:KEY,Authorization:'Bearer '+KEY};
-let OUT=null,LAST_BUFFER=null,STAGE_OVERRIDE={},IMPORT_READY=false;
+// ตั้งค่า 3 ค่านี้ให้ตรงกันทั้ง Dashboard และ Admin โดยใช้โปรเจกต์ Supabase ใหม่เท่านั้น
+const SITE_CONFIG = Object.freeze({
+  supabaseUrl: '',         // เช่น https://NEW_PROJECT_REF.supabase.co
+  publishableKey: '',      // sb_publishable_... ของโปรเจกต์ใหม่ (ห้ามใช้ secret/service_role)
+  projectRef: '',          // NEW_PROJECT_REF ต้องตรงกับ URL ด้านบน
+  siteId: 'delivery-sla-v2',
+  table: 'sla_dashboard_v2'
+});
+const LEGACY_PROJECT_REF = 'axcudclbkzhtdnezhlbi';
+function requireConfig(){
+ const c=SITE_CONFIG;
+ if(!/^[a-z0-9]{20}$/.test(c.projectRef)||c.projectRef===LEGACY_PROJECT_REF)
+   throw new Error('กรุณาตั้งค่า Supabase โปรเจกต์ใหม่ แยกจากเว็บไซต์เดิม');
+ if(c.supabaseUrl!==`https://${c.projectRef}.supabase.co`)
+   throw new Error('Supabase URL และ Project Ref ไม่ตรงกัน');
+ if(!/^sb_publishable_[A-Za-z0-9_-]+$/.test(c.publishableKey))
+   throw new Error('ใช้เฉพาะ Publishable Key ของโปรเจกต์ใหม่เท่านั้น');
+ if(c.table!=='sla_dashboard_v2'||c.siteId!=='delivery-sla-v2')
+   throw new Error('ชื่อตารางหรือรหัสเว็บไซต์ใหม่ไม่ตรงกับชุดติดตั้ง');
+ return c;
+}
+function dataEndpoint(){const c=requireConfig();return c.supabaseUrl+'/rest/v1/'+c.table+'?id=eq.'+encodeURIComponent(c.siteId)}
+function apiHeaders(token){const c=requireConfig();return {apikey:c.publishableKey,...(token?{Authorization:'Bearer '+token}:{})}}
+
+const $=i=>document.getElementById(i);
+let OUT=null,LAST_BUFFER=null,STAGE_OVERRIDE={},IMPORT_READY=false,SESSION=null,LAST_UPDATED=null,SAVING=false;
+function canWrite(){return !!SESSION&&Date.now()<SESSION.expiresAt}
+function syncSave(){ $('sv').disabled=SAVING||!IMPORT_READY||!canWrite() }
+function requireSession(){requireConfig();if(!canWrite())throw new Error('กรุณาเข้าสู่ระบบผู้ดูแลอีกครั้งก่อนบันทึก');return SESSION.token}
+function setAuth(message){$('auth-status').textContent=message;$('login-form').hidden=!!SESSION;$('logout-btn').hidden=!SESSION;syncSave()}
+$('login-form').onsubmit=async e=>{
+ e.preventDefault();$('login-btn').disabled=true;SESSION=null;LAST_UPDATED=null;syncSave();
+ try{
+  const c=requireConfig(),r=await fetch(c.supabaseUrl+'/auth/v1/token?grant_type=password',{method:'POST',headers:{...apiHeaders(),'Content-Type':'application/json'},body:JSON.stringify({email:$('email').value.trim(),password:$('password').value})});
+  if(!r.ok)throw new Error('เข้าสู่ระบบไม่สำเร็จ กรุณาตรวจอีเมลและรหัสผ่าน');
+  const data=await r.json();
+  if(!data.access_token||!data.user?.id||!Number.isFinite(Number(data.expires_in)))throw new Error('ข้อมูลการเข้าสู่ระบบไม่สมบูรณ์');
+  const check=await fetch(c.supabaseUrl+'/rest/v1/sla_site_admins?select=user_id&user_id=eq.'+encodeURIComponent(data.user.id),{headers:apiHeaders(data.access_token),cache:'no-store'});
+  if(!check.ok||(await check.json()).length!==1)throw new Error('บัญชีนี้ยังไม่มีสิทธิ์ผู้ดูแลเว็บไซต์ใหม่');
+  SESSION={token:data.access_token,expiresAt:Date.now()+Number(data.expires_in)*1000-30000};
+  $('password').value='';setAuth('เข้าสู่ระบบผู้ดูแลเว็บไซต์ใหม่แล้ว');await cur();
+ }catch(e){SESSION=null;setAuth(e.message)}finally{$('login-btn').disabled=false;syncSave()}
+};
+async function logout(){const token=SESSION?.token;SESSION=null;LAST_UPDATED=null;setAuth('ออกจากระบบแล้ว');$('password').value='';if(token)try{await fetch(requireConfig().supabaseUrl+'/auth/v1/logout',{method:'POST',headers:apiHeaders(token)})}catch{} }
+setInterval(()=>{if(SESSION&&!canWrite()){SESSION=null;setAuth('เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่')}} ,15000);
+// Keep positional indices unchanged; never publish source sales or monetary loss fields.
+function dashboardPayload(source){const rows=source.rows.map(row=>{const copy=Array.from(row);[11,12,13,14,15,17,18].forEach(i=>copy[i]=null);return copy});return {...source,rows,siteId:SITE_CONFIG.siteId,schemaVersion:2,salesRedacted:true}}
+
 const STAGES=['รับ','จัด','รอส่ง','ส่ง'];
 // Append AK–AO after existing fields; never shift hourly data, performance status or TIER.
 const BILL_SOURCES=[['จำนวนบิลรวม (ใช้คำนวณ)',36,'AK',false],['จำนวนบิลภายใน 45 นาที',37,'AL',false],['สัดส่วนบิลภายใน 45 นาที',38,'AM',true],['จำนวนบิลมากกว่า 45 นาที',39,'AN',false],['สัดส่วนบิลมากกว่า 45 นาที',40,'AO',true]];
@@ -64,8 +112,8 @@ function findStageColumn(headers,label){
 function setStageColumn(label,value){if(!STAGES.includes(label)||!LAST_BUFFER)return;STAGE_OVERRIDE[label]=Number(value);parse(LAST_BUFFER,STAGE_OVERRIDE);}
 $('file').onchange=e=>{const fl=e.target.files[0];if(!fl)return;$('fs').textContent='กำลังอ่านไฟล์ '+fl.name+' (ไฟล์ใหญ่ใช้เวลาสักครู่)…';
  OUT=null;IMPORT_READY=false;LAST_BUFFER=null;STAGE_OVERRIDE={};$('sv').disabled=true;$('ss').textContent='';$('mp').style.display='none';
- const rd=new FileReader();rd.onload=ev=>setTimeout(()=>{try{parse(ev.target.result)}catch(x){$('fs').innerHTML='<span class="er">อ่านไฟล์ไม่สำเร็จ: '+x.message+'</span>'}},50);rd.readAsArrayBuffer(fl)};
-function parse(buf,overrides={}){IMPORT_READY=false;OUT=null;LAST_BUFFER=buf;const wb=XLSX.read(buf,{type:'array'}),sn=wb.SheetNames.find(n=>n.toLowerCase()=='data')||wb.SheetNames[0];
+ const rd=new FileReader();rd.onload=ev=>setTimeout(()=>{try{parse(ev.target.result)}catch(x){$('fs').innerHTML='<span class="er">อ่านไฟล์ไม่สำเร็จ: '+escapeHtml(x.message)+'</span>'}},50);rd.readAsArrayBuffer(fl)};
+function parse(buf,overrides={}){IMPORT_READY=false;OUT=null;syncSave();LAST_BUFFER=buf;if(typeof XLSX==='undefined')throw new Error('โหลดตัวอ่าน Excel ไม่สำเร็จ กรุณาตรวจอินเทอร์เน็ตแล้วโหลดหน้าใหม่');const wb=XLSX.read(buf,{type:'array'}),sn=wb.SheetNames.find(n=>n.toLowerCase()=='data')||wb.SheetNames[0];
  const A=XLSX.utils.sheet_to_json(wb.Sheets[sn],{header:1,defval:null,raw:true});
  const hi=A.slice(0,20).findIndex(r=>r.some(c=>String(c??'').trim().toLowerCase()=='store_id'));if(hi<0)throw new Error('ไม่พบแถวหัวตารางที่มี store_id ในชีต '+sn);
  const H=A[hi].map(h=>String(h??'').replace(/\s+/g,' ').trim().toLowerCase()),nth=(nm,k=0)=>{let c=0;for(let i=0;i<H.length;i++)if(H[i]==nm&&c++==k)return i;return -1},has=p=>H.findIndex(h=>h.includes(p)),sw=p=>H.findIndex(h=>h.startsWith(p));
@@ -86,7 +134,7 @@ function parse(buf,overrides={}){IMPORT_READY=false;OUT=null;LAST_BUFFER=buf;con
  missingBills=BILL_SOURCES.filter(([,i])=>A[hi].length<=i||(String(A[hi][i]??'').trim()===''&&!sourceRows.some(r=>r[i]!=null&&String(r[i]).trim()!==''))),
  invalidBills=BILL_SOURCES.filter((s,k)=>billResults.some(cells=>cells[k].error)),
  incompleteBills=billResults.some(cells=>cells.some((cell,k)=>(!BILL_SOURCES[k][3]||cells[0].value>0)&&cell.value==null&&!cell.error)),
- miss=[...S,['TIER',ti,'t']].filter(s=>s[1]<0).map(s=>s[0]),crit=ti<0||[0,11,22,23,24,25,26].some(i=>S[i][1]<0)||invalidStages.length>0||missingBills.length>0||invalidBills.length>0;$('mw').innerHTML=miss.length?`<span class="wn">⚠ ไม่พบ ${miss.join(', ')} — จะเป็นค่าว่าง</span>`:'<span class="ok">✓ จับคู่ตำแหน่งคอลัมน์ครบทุกหมวด (แยกจากการตรวจค่าข้อมูล)</span>';$('mw').innerHTML+=pi>=0?'<br><span class="ok">✓ พบคอลัมน์ performance_status</span>':'<br><span class="wn">⚠ ไม่พบคอลัมน์ performance_status — Dashboard จะแบ่ง Performance / Non Performance จาก SLA (> 45 = Non) และนับร้านที่ไม่มี SLA เป็น Performance</span>';
+ miss=[...S,['TIER',ti,'t']].filter(s=>s[1]<0).map(s=>s[0]),crit=ti<0||[0,22,23,24,25,26].some(i=>S[i][1]<0)||invalidStages.length>0||missingBills.length>0||invalidBills.length>0;$('mw').innerHTML=miss.length?`<span class="wn">⚠ ไม่พบ ${miss.map(escapeHtml).join(', ')} — จะเป็นค่าว่าง</span>`:'<span class="ok">✓ จับคู่ตำแหน่งคอลัมน์ครบทุกหมวด (แยกจากการตรวจค่าข้อมูล)</span>';$('mw').innerHTML+=pi>=0?'<br><span class="ok">✓ พบคอลัมน์ performance_status</span>':'<br><span class="wn">⚠ ไม่พบคอลัมน์ performance_status — Dashboard จะแบ่ง Performance / Non Performance จาก SLA (> 45 = Non) และนับร้านที่ไม่มี SLA เป็น Performance</span>';
  if(ti<0)$('mw').innerHTML+='<br><span class="er">กรุณาเลือกไฟล์ที่มีคอลัมน์ TIER ก่อนบันทึก</span>';
  if(S.slice(23,27).some(s=>s[1]<0))$('mw').innerHTML+='<br><span class="er">กรุณาเลือกคอลัมน์เวลารับ จัด รอส่ง และส่งให้ครบก่อนบันทึก</span>';
  if(invalidStages.length)$('mw').innerHTML+='<br><span class="er">คอลัมน์ '+invalidStages.map(s=>escapeHtml(s[0])+' ('+XLSX.utils.encode_col(s[1])+')').join(', ')+' มีค่าที่ไม่ใช่เวลานาที กรุณาเลือกคอลัมน์ตัวเลขตามรูปแบบต้นฉบับก่อนบันทึก</span>';
@@ -97,14 +145,32 @@ function parse(buf,overrides={}){IMPORT_READY=false;OUT=null;LAST_BUFFER=buf;con
  const nm=(v,d)=>{if(v==null||String(v).trim()===''||isNaN(+v))return null;const m=10**d;return Math.round(+v*m)/m},tx=v=>v==null||v===''?null:String(v).trim();
  const rows=sourceRows.map((r,ri)=>{const o=S.map(s=>s[1]<0?null:s[2]=='t'?tx(r[s[1]]):nm(r[s[1]],s[2]));for(let k=0;k<24;k++)o.push(hrs[k]>=0?nm(r[hrs[k]],1):null);for(let k=24;k<48;k++)o.push(hrs[k]>=0?nm(r[hrs[k]],1):null);o.push(pi>=0?tx(r[pi]):null);o.push(ti>=0?tx(r[ti]):null);billResults[ri].forEach(cell=>o.push(cell.value));return o});
  const t=String(A.slice(0,hi).flat().find(c=>typeof c=='string'&&c.includes('สะสม'))||''),m=t.match(/สะสม\s*(.+?)(?:\s*จำนวน|$)/);
- OUT={period:m?m[1].trim():'',count:rows.length,rows,processSources:Object.fromEntries(S.slice(23,27).map(s=>[s[0],s[1]>=0?XLSX.utils.encode_col(s[1]):null])),billSchemaVersion:1,billSources:Object.fromEntries(BILL_SOURCES.map((s,k)=>[s[2],77+k]))};$('fs').innerHTML=`<span class="ok">อ่านไฟล์สำเร็จ</span> ชีต ${sn} • ${rows.length.toLocaleString()} สาขา${OUT.period?' • ช่วง '+OUT.period:''}`;
+ OUT={period:m?m[1].trim():'',count:rows.length,rows,processSources:Object.fromEntries(S.slice(23,27).map(s=>[s[0],s[1]>=0?XLSX.utils.encode_col(s[1]):null])),billSchemaVersion:1,billSources:Object.fromEntries(BILL_SOURCES.map((s,k)=>[s[2],77+k]))};$('fs').innerHTML=`<span class="ok">อ่านไฟล์สำเร็จ</span> ชีต ${escapeHtml(sn)} • ${rows.length.toLocaleString()} สาขา${OUT.period?' • ช่วง '+escapeHtml(OUT.period):''}`;
  if(pi>=0){const c={P:0,N:0,'':0};rows.forEach(o=>c[pv(o[75])]++);$('fs').innerHTML+=` • performance_status: Performance ${c.P.toLocaleString()} / Non Performance ${c.N.toLocaleString()}${c['']?' / ว่าง '+c[''].toLocaleString():''}`}
- $('mp').style.display='block';IMPORT_READY=!crit&&rows.length>0;$('sv').disabled=!IMPORT_READY}
-async function save(){if(!IMPORT_READY||!OUT){$('ss').textContent='กรุณาตรวจคอลัมน์และข้อมูลเวลาให้ครบก่อนบันทึก';return}const b=$('sv');b.disabled=true;b.textContent='กำลังบันทึก…';
- try{const r=await fetch(URL_+'/rest/v1/sla_data?id=eq.1',{method:'PATCH',headers:{...HD,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({records:OUT,updated_at:new Date().toISOString()})});
- if(!r.ok)throw new Error('HTTP '+r.status+' '+(await r.text()).slice(0,120));$('ss').innerHTML=`<span class="ok">บันทึกสำเร็จ</span> ${OUT.count.toLocaleString()} สาขา — เปิด Dashboard แล้วกดรีเฟรชข้อมูล`;cur()}catch(x){$('ss').innerHTML='<span class="er">บันทึกไม่สำเร็จ: '+x.message+'</span>'}
- b.disabled=!IMPORT_READY;b.textContent='บันทึกข้อมูลและอัปเดต Dashboard'}
-async function cur(){try{const r=await fetch(URL_+'/rest/v1/sla_data?id=eq.1&select=updated_at,n:records->>count,p:records->>period',{headers:HD});if(!r.ok)throw new Error('HTTP '+r.status);const d=(await r.json())[0]||{};
- $('cur').textContent=d.n?`มีข้อมูล ${(+d.n).toLocaleString()} สาขา${d.p?' • ช่วง '+d.p:''} • อัปเดตล่าสุด ${new Date(d.updated_at).toLocaleString('th-TH')}`:'ยังไม่มีข้อมูลในระบบ'}catch(x){$('cur').textContent='ตรวจสอบไม่สำเร็จ: '+x.message}}
-cur();
+ $('mp').style.display='block';IMPORT_READY=!crit&&rows.length>0;syncSave()}
+async function save(){
+ if(SAVING)return;
+ if(!IMPORT_READY||!OUT){$('ss').textContent='กรุณาตรวจคอลัมน์และข้อมูลเวลาให้ครบก่อนบันทึก';return}
+ SAVING=true;syncSave();$('sv').textContent='กำลังบันทึก…';
+ try{
+  const token=requireSession();
+  if(!LAST_UPDATED)throw new Error('ยังไม่พบแถวเว็บไซต์ใหม่ กรุณาติดตั้ง SQL และกดตรวจสอบข้อมูลอีกครั้ง');
+  const source=OUT,saved=dashboardPayload(source),r=await fetch(dataEndpoint()+'&updated_at=eq.'+encodeURIComponent(LAST_UPDATED),{method:'PATCH',headers:{...apiHeaders(token),'Content-Type':'application/json',Prefer:'return=representation'},body:JSON.stringify({records:saved})});
+  if(!r.ok)throw new Error('บันทึกไม่ได้ (HTTP '+r.status+') กรุณาตรวจสิทธิ์ RLS หรือเข้าสู่ระบบใหม่');
+  const result=await r.json();
+  if(!Array.isArray(result)||result.length!==1)throw new Error('ไม่มีแถวถูกอัปเดต ข้อมูลอาจเปลี่ยนโดยผู้ดูแลคนอื่น กรุณากดตรวจสอบข้อมูลอีกครั้งก่อนบันทึก');
+  LAST_UPDATED=result[0].updated_at;
+  $('ss').textContent='บันทึกสำเร็จ '+source.count.toLocaleString()+' สาขา — อัปเดตเฉพาะเว็บไซต์ใหม่แล้ว';
+  await cur();
+ }catch(e){$('ss').textContent='บันทึกไม่สำเร็จ: '+e.message}
+ finally{SAVING=false;syncSave();$('sv').textContent='บันทึกข้อมูลและอัปเดต Dashboard'}
+}
+async function cur(){
+ try{const r=await fetch(dataEndpoint()+'&select=updated_at,n:records->>count,p:records->>period',{headers:apiHeaders(canWrite()?SESSION.token:null),cache:'no-store'});
+ if(!r.ok)throw new Error('HTTP '+r.status);const rows=await r.json();if(rows.length!==1){LAST_UPDATED=null;throw new Error('ไม่พบแถวเว็บไซต์ใหม่ กรุณาติดตั้ง SQL ก่อนนำเข้าข้อมูล')}
+ const d=rows[0];LAST_UPDATED=d.updated_at;
+ $('cur').textContent=+d.n?`มีข้อมูล ${(+d.n).toLocaleString()} สาขา${d.p?' • ช่วง '+d.p:''} • อัปเดตล่าสุด ${new Date(d.updated_at).toLocaleString('th-TH')}`:'ยังไม่มีข้อมูลในระบบใหม่ พร้อมนำเข้า Excel';
+ }catch(e){LAST_UPDATED=null;$('cur').textContent='ตรวจสอบไม่สำเร็จ: '+e.message}
+}
+try{const c=requireConfig();$('target').textContent='โปรเจกต์ใหม่: '+c.projectRef+' · ตาราง: '+c.table+' · เว็บไซต์: '+c.siteId;cur()}catch(e){$('target').textContent=e.message+' — ดูวิธีตั้งค่าด้านล่าง';$('cur').textContent='ยังไม่เชื่อมต่อฐานข้อมูล ไม่มีการอ่านหรือเขียนข้อมูลเว็บไซต์เดิม'}
 </script></body></html>
